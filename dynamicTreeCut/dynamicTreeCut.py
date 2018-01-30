@@ -10,13 +10,11 @@ from dynamicTreeCut.R_func import *
 chunkSize = 100
 
 #Function to index flat matrix as squareform matrix
-def dist_index(i, j, matrix):
+def dist_index(i, j, matrix, l, n):
     
     if i == j:
         return(0.0)
     
-    l = len(matrix)
-    n = 0.5*(np.sqrt((8*l)+1)+1)
     index = int(l - binom(n-min(i, j), 2) + (max(i, j) - min(i, j) - 1))
     
     return(matrix[index])
@@ -25,10 +23,17 @@ def dist_index(i, j, matrix):
 #Function to index flat matrix as squareform matrix
 def dist_multi_index(_array, matrix):
     
+    #handle 2D array
+    if len(matrix.shape) == 2:
+        return(matrix[_array, :][:, _array])
+    
+    l = len(matrix)
+    n = 0.5*(np.sqrt((8*l)+1)+1)
+    
     results = np.zeros((len(_array), len(_array)))
     for i in range(len(_array)):
         for j in range(i, len(_array)):
-            score = dist_index(_array[i], _array[j], matrix)
+            score = dist_index(_array[i], _array[j], matrix, l, n)
             results[i,j] = score
             results[j,i] = score
     
@@ -37,6 +42,10 @@ def dist_multi_index(_array, matrix):
 
 #Function to index rows of flat matrix as squareform matrix
 def get_rows(_array, matrix):
+    
+    #handle 2D array
+    if len(matrix.shape) == 2:
+        return(matrix[_array,:])
     
     l = len(matrix)
     n = int(0.5*(np.sqrt((8*l)+1)+1))
