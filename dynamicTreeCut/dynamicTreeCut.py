@@ -55,8 +55,11 @@ def get_rows(_array, matrix):
     
         for row, i in enumerate(_array):
             for j in range(n):
-                index = int(l - binom(n - min(i, j), 2) + (max(i, j) - min(i, j) - 1))
-                results[row,j] = matrix[index]
+                if i == j:
+                    results[row, j] = 0.0
+                else:
+                    index = int(l - binom(n - min(i, j), 2) + (max(i, j) - min(i, j) - 1))
+                    results[row,j] = matrix[index]
     
         return(results)
         
@@ -66,8 +69,11 @@ def get_rows(_array, matrix):
         for i, b in enumerate(_array):
             if b == True:
                 for j in range(n):
-                    index = int(l - binom(n - min(i, j), 2) + (max(i, j) - min(i, j) - 1))
-                    results[row, j] = matrix[index]
+                    if i == j:
+                        results[row, j] = 0.0
+                    else:
+                        index = int(l - binom(n - min(i, j), 2) + (max(i, j) - min(i, j) - 1))
+                        results[row, j] = matrix[index]
                 
                 row += 1
                 
