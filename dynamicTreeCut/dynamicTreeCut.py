@@ -759,7 +759,7 @@ def cutreeHybrid(link, distM,
         if len(Sizes) > 1:
             SizeRank = np.append(1, rankdata(-Sizes[1:len(Sizes)], method="ordinal")+1)
         else:
-            SizeRank = 1
+            SizeRank = np.array([1])
         OrdNumLabs = SizeRank[NumLabs - 1]
     else:
         SizeRank = rankdata(-Sizes[np.arange(len(Sizes))], method="ordinal")
