@@ -115,7 +115,7 @@ def CoreScatter(BranchDist, minClusterSize):
 
 def interpolate(data, index):
     
-    i = np.round(index)
+    i = np.round(index).astype(int)
     n = len(data)
     if i < 0: return(data[0])
     if i >= n: return(data[-1])
@@ -762,7 +762,7 @@ def cutreeHybrid(link, distM,
             SizeRank = np.array([1])
         OrdNumLabs = SizeRank[NumLabs - 1]
     else:
-        SizeRank = rankdata(-Sizes[np.arange(len(Sizes))], method="ordinal")
+        SizeRank = rankdata(-Sizes, method="ordinal")
         OrdNumLabs = SizeRank[NumLabs - 2]
     ordCoreLabels = OrdNumLabs - UnlabeledExist
     ordCoreLabels[coreLabels == 0] = 0
